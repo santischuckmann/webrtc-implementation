@@ -1,44 +1,96 @@
-import { Button, Dialog } from '@mui/material';
-import MessageCard from 'components/MessageCard';
 import React, { useState } from 'react';
+import Video from './Video'
+import Screenshot from './Screenshot'
+import { videoNames } from './videoNames';
 
-/* 
-  idea de implementacion generar la siguiente estructura
-
-  {
-    userIds: [],
-    messageType: 'Invitation',
-    channels: [{
-      type: 'email',
-      subject: '',
-      body: '',
-    }, {
-      type: 'sms',
-      body: '',
-    },{
-      type: 'whatsapp',
-      body: '',
-    }] 
+interface StateOfVideos {
+  video0: {
+    up?: boolean,
+    completed?: boolean
+    time?: number;
   }
+  video1: {
+    up?: boolean,
+    completed?: boolean
+    time?: number
+  },
+  video2: {
+    up?: boolean,
+    completed?: boolean
+    time?: number
+  },
+  video3: {
+    up?: boolean,
+    completed?: boolean
+    time?: number
+  }
+}
 
-*/
 
 function App() {
-  const [open, setOpen] = useState(false);
+  const [stateOfVideos, setStateOfVideos] = useState<StateOfVideos>({
+    video0:{
+      up: false,
+      completed: false,
+      time: 0,
+    },
+    video1: {
+      up: false,
+      completed: false,
+      time: 0
+    },
+    video2: {
+      up: false,
+      completed:false,
+      time: 0
+    },
+    video3: {
+      up: false,
+      completed: false,
+      time: 0
+    }
+})
+  const [isAVideoUp, setIsAVideoUp] = useState({
+    is: false,
+    id: 0})
 
-  const _handleClick = () => {
-    setOpen(true);
-  };
+  const handleQuestionSelected = (id: number) => {
+    setStateOfVideos(
+      {...stateOfVideos,
+      [`video${id}`]:{
+        up: true
+    },})
+    setIsAVideoUp({is: true, id: id});
+  }
 
-  const _handleClose = () => {
-    setOpen(false);
-  };
+  const getNextQuestion = () => {
+    if (isAVideoUp.id == 3) {
+      setIsAVideoUp ({is: true, id: 0})
+      return;
+    }
+    setIsAVideoUp ({is: true, id: isAVideoUp.id +1})
+  }
+
   return (
     <div className="App">
-      <Button onClick={_handleClick}>Abrir</Button>
-      <Dialog open={open} onClose={_handleClose}>
-        <MessageCard onClose={_handleClose} />
-      </Dialog>
+      <h1>Send us your responses!</h1>
+      <div className='screenshots'>
+        {videoNames.map(name => {
+          return (
+            <Screenshot 
+            key={name.id} 
+            id = {name.id}
+            videoQuestion = {name.question}
+            handleQuestion = {handleQuestionSelected}/>
+          )
+        })}
+      </div>
+      {isAVideoUp.is &&
+      <Video 
+        videoQuestion={videoNames[isAVideoUp.id].question} 
+        getNextQuestion = {getNextQuestion}
+        >
+        </Video>}
     </div>
   );
 }

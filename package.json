@@ -16,10 +16,12 @@
     "@mui/icons-material": "^5.4.2",
     "@mui/material": "^5.4.2",
     "@mui/styles": "^5.4.2",
+    "@types/webrtc": "^0.0.32",
     "immer": "^9.0.12",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "webrtc-adapter": "^8.1.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.178",
