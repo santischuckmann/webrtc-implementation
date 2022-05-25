@@ -12,6 +12,7 @@ const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp,
   const [recording, setRecording] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
   const recordedVideo = useRef<HTMLVideoElement>(null);
+  // @ts-ignore 
   let mediaRecorder = useRef<any>(null);
   let recordedBlobs = useRef<any>([0,0,0,0]);
 
@@ -40,6 +41,7 @@ const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp,
   const startRecording = async () => {
     await initiateStream();
     try {
+      // @ts-ignore 
       mediaRecorder.current = new MediaRecorder((window as any).stream);
     } catch (e) {
       console.error('Error creando MediaRecorder: ', e);

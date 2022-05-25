@@ -1,7 +1,10 @@
 {
+  "homepage":"https://santischuckmann.github.io/webrtc-implementation",
   "name": "vite-reactts-eslint-prettier",
   "version": "0.0.0",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
@@ -38,6 +41,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "gh-pages": "^4.0.0",
     "pre-commit": "^1.2.2",
     "prettier": "^2.3.2",
     "typescript": "^4.3.5",
