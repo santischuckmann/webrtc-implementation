@@ -65,7 +65,7 @@ function App() {
     setIsAVideoUp({ is: true, id: id });
   };
 
-  const getNextQuestion = () => {
+  const selectVideo = () => {
     if (isAVideoUp.id == 3) {
       setIsAVideoUp({ is: true, id: 0 });
       return;
@@ -91,7 +91,7 @@ function App() {
       {isAVideoUp.is && (
         <Video
           videoQuestion={videoNames[isAVideoUp.id].question}
-          getNextQuestion={getNextQuestion}
+          selectVideo={selectVideo}
           videos={stateOfVideos}
           setVideos={setStateOfVideos}></Video>
       )}
