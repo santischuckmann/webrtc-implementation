@@ -91,11 +91,9 @@ function App() {
       {isAVideoUp.is && (
         <Video
           videoQuestion={videoNames[isAVideoUp.id].question}
-         getNextQuestion={getNextQuestion}
-          videos = {stateOfVideos}
-          setVideos = {setStateOfVideos}
-          >
-          </Video>
+          getNextQuestion={getNextQuestion}
+          videos={stateOfVideos}
+          setVideos={setStateOfVideos}></Video>
       )}
     </div>
   );
