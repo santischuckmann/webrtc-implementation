@@ -6,22 +6,18 @@ import { videoNames } from './videoNames';
 
 interface StateOfVideos {
   video0: {
-    up?: boolean;
     completed?: boolean;
     time?: number;
   };
   video1: {
-    up?: boolean;
     completed?: boolean;
     time?: number;
   };
   video2: {
-    up?: boolean;
     completed?: boolean;
     time?: number;
   };
   video3: {
-    up?: boolean;
     completed?: boolean;
     time?: number;
   };
@@ -30,22 +26,18 @@ interface StateOfVideos {
 function App() {
   const [stateOfVideos, setStateOfVideos] = useState<StateOfVideos>({
     video0: {
-      up: false,
       completed: false,
       time: 0,
     },
     video1: {
-      up: false,
       completed: false,
       time: 0,
     },
     video2: {
-      up: false,
       completed: false,
       time: 0,
     },
     video3: {
-      up: false,
       completed: false,
       time: 0,
     },
@@ -56,12 +48,6 @@ function App() {
   });
 
   const handleQuestionSelected = (id: number) => {
-    setStateOfVideos({
-      ...stateOfVideos,
-      [`video${id}`]: {
-        up: true,
-      },
-    });
     setIsAVideoUp({ is: true, id: id });
   };
   

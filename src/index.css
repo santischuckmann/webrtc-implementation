@@ -64,6 +64,7 @@ code {
 
 .main_video {
   border: 1px solid red;
+  position: relative
 }
 
 .recorded_video {
@@ -82,4 +83,12 @@ code {
   justify-content: space-evenly;
   align-items: center;
   gap: 3rem;
+}
+
+.buttons .not_showing {
+  display: none;
+}
+
+.showing {
+  display: block;
 }

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface Props {
   videoQuestion: string;
@@ -10,14 +10,17 @@ interface Props {
 
 const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp, setVideos }) => {
   const [recording, setRecording] = useState(false);
+  const [completed, setCompleted] = useState(0);
   const video = useRef<HTMLVideoElement>(null);
   const recordedVideo = useRef<HTMLVideoElement>(null);
-  // @ts-ignore 
   let mediaRecorder = useRef<any>(null);
   let recordedBlobs = useRef<any>([0,0,0,0]);
+  let sendButton = useRef<HTMLButtonElement>(null)
 
   const constraints = {
-    audio: false,
+    audio: {
+      echoCancellation: true
+    },
     video: { width: 640, height: 300 },
   };
 
@@ -34,14 +37,13 @@ const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp,
   const handleDataAvailable = (event: any) => {
     console.log('handleDataAvailable: ', event);
     if (event.data && event.data.size > 0) {
-        recordedBlobs.current.splice(videoUp.id, 0, [event.data]);
+        recordedBlobs.current.splice(videoUp.id, 1, [event.data]);
     }
   };
 
   const startRecording = async () => {
     await initiateStream();
     try {
-      // @ts-ignore 
       mediaRecorder.current = new MediaRecorder((window as any).stream);
     } catch (e) {
       console.error('Error creando MediaRecorder: ', e);
@@ -70,6 +72,7 @@ const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp,
     mediaRecorder.current.stop();
     console.log('Termino el video');
     setRecording(false);
+    setCompleted(completed + 1)
   };
 
   const clickStart = () => {
@@ -96,13 +99,26 @@ const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp,
     } else {
       setIsAVideoUp({ is: true, id: videoUp.id - 1 });
     }
-    (recordedVideo.current as any).pause();
   };
+
+  const checkSendReady = () => {
+    if (completed === 4) {
+      sendButton.current?.classList.remove("not_showing")
+      sendButton.current?.classList.add("showing")
+    }
+  }
+
+  useEffect(() => {
+    (recordedVideo.current as any).pause();
+    checkSendReady()
+    console.log(completed)
+  }, [completed] )
 
   return (
     <div className="video_container">
       <h1>{videoQuestion}</h1>
-      <video className="main_video" ref={video} autoPlay playsInline></video>
+      <video className="main_video" ref={video} autoPlay playsInline>
+</video>
       <video
         className="recorded_video"
         ref={recordedVideo}
@@ -120,6 +136,7 @@ const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp,
         <button className="siguiente" onClick={nextVideo}>
           Siguiente
         </button>
+        <button ref ={sendButton} className ="not_showing">Enviar</button>
       </div>
     </div>
   );
