@@ -6,7 +6,6 @@ interface Props {
   setIsAVideoUp: any;
 }
 
-
 const Video: React.FC<Props> = ({ videoQuestion, videoUp, setIsAVideoUp }) => {
   const [recording, setRecording] = useState(false);
   const [completed, setCompleted] = useState(0);
@@ -63,7 +62,7 @@ const Video: React.FC<Props> = ({ videoQuestion, videoUp, setIsAVideoUp }) => {
       recordedVideo.current.controls = true;
       (recordedVideo as any).current.play();
     } else {
-      throw new Error ("video is null");
+      throw new Error('video is null');
     }
   };
 
@@ -107,16 +106,16 @@ const Video: React.FC<Props> = ({ videoQuestion, videoUp, setIsAVideoUp }) => {
   };
 
   const countMinutes = () => {
-      setTimeout(() => {
-        stopRecording();
-      }, 60000 * 2)
-  }
+    setTimeout(() => {
+      stopRecording();
+    }, 60000 * 2);
+  };
 
   useEffect(() => {
     if (recording == true) {
-      countMinutes()
+      countMinutes();
     }
-  }, [videoUp.id])
+  }, [videoUp.id]);
 
   useEffect(() => {
     (recordedVideo.current as any).pause();
@@ -128,12 +127,7 @@ const Video: React.FC<Props> = ({ videoQuestion, videoUp, setIsAVideoUp }) => {
       <h1>{videoQuestion}</h1>
       <h3>Maximo de dos minutos por video</h3>
       <h3>Puede reintentar las veces que usted quiera</h3>
-      <video 
-        className="main_video" 
-        ref={video} 
-        autoPlay 
-        playsInline>
-        </video>
+      <video className="main_video" ref={video} autoPlay playsInline></video>
       <video
         className="recorded_video"
         ref={recordedVideo}
