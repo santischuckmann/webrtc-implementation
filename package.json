@@ -1,6 +1,6 @@
 {
-  "homepage": "https://santischuckmann.github.io/webrtc-implementation",
-  "name": "vite-reactts-eslint-prettier",
+  "homepage": "https://santischuckmann.github.io/",
+  "name": "webrtc-implementation",
   "version": "0.0.0",
   "scripts": {
     "predeploy": "npm run build",

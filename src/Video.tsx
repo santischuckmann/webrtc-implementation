@@ -42,7 +42,8 @@ const Video: React.FC<Props> = ({ videoQuestion, videoUp, setIsAVideoUp }) => {
   const startRecording = async () => {
     await initiateStream();
     try {
-      mediaRecorder.current = new MediaRecorder((window as any).stream);
+       // @ts-ignore
+       mediaRecorder.current = new MediaRecorder((window as any).stream);
     } catch (e) {
       console.error('Error creando MediaRecorder: ', e);
     }
