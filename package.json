@@ -1,5 +1,6 @@
 {
   "homepage": "https://santischuckmann.github.io/webrtc-implementation",
+  "private": "false",
   "name": "webrtc-implementation",
   "version": "0.0.0",
   "scripts": {
