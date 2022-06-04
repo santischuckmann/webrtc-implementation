@@ -2,24 +2,23 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface Props {
   videoQuestion: string;
-  videos: any;
   videoUp: any;
   setIsAVideoUp: any;
-  setVideos: any;
 }
 
-const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp, setVideos }) => {
+
+const Video: React.FC<Props> = ({ videoQuestion, videoUp, setIsAVideoUp }) => {
   const [recording, setRecording] = useState(false);
   const [completed, setCompleted] = useState(0);
   const video = useRef<HTMLVideoElement>(null);
   const recordedVideo = useRef<HTMLVideoElement>(null);
   let mediaRecorder = useRef<any>(null);
-  let recordedBlobs = useRef<any>([0,0,0,0]);
-  let sendButton = useRef<HTMLButtonElement>(null)
+  let recordedBlobs = useRef<any>([0, 0, 0, 0]);
+  let sendButton = useRef<HTMLButtonElement>(null);
 
   const constraints = {
     audio: {
-      echoCancellation: true
+      echoCancellation: true,
     },
     video: { width: 640, height: 300 },
   };
@@ -37,7 +36,7 @@ const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp,
   const handleDataAvailable = (event: any) => {
     console.log('handleDataAvailable: ', event);
     if (event.data && event.data.size > 0) {
-        recordedBlobs.current.splice(videoUp.id, 1, [event.data]);
+      recordedBlobs.current.splice(videoUp.id, 1, [event.data]);
     }
   };
 
@@ -50,11 +49,12 @@ const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp,
     }
     setRecording(true);
     mediaRecorder.current?.start();
+    countMinutes();
     console.log('Inicio el video');
   };
 
   const playRecorded = () => {
-    console.log(recordedBlobs.current)
+    console.log(recordedBlobs.current);
     let superBuffer = new Blob(recordedBlobs.current[videoUp.id], {
       type: 'video/webm;codecs=vp9,opus',
     });
@@ -63,20 +63,18 @@ const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp,
       recordedVideo.current.controls = true;
       (recordedVideo as any).current.play();
     } else {
-      console.error('la cagué');
+      throw new Error ("video is null");
     }
   };
 
   const stopRecording = () => {
     mediaRecorder.current.ondataavailable = handleDataAvailable;
     mediaRecorder.current.stop();
-    console.log('Termino el video');
     setRecording(false);
-    setCompleted(completed + 1)
+    setCompleted(completed + 1);
   };
 
   const clickStart = () => {
-    console.log("clickStart", videoUp.id)
     if (recording === false) {
       startRecording();
     } else {
@@ -88,7 +86,7 @@ const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp,
     if (videoUp.id === 3) {
       setIsAVideoUp({ is: true, id: 0 });
     } else {
-    setIsAVideoUp({ is: true, id: videoUp.id + 1 });
+      setIsAVideoUp({ is: true, id: videoUp.id + 1 });
     }
     (recordedVideo.current as any).pause();
   };
@@ -103,22 +101,39 @@ const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp,
 
   const checkSendReady = () => {
     if (completed === 4) {
-      sendButton.current?.classList.remove("not_showing")
-      sendButton.current?.classList.add("showing")
+      sendButton.current?.classList.remove('not_showing');
+      sendButton.current?.classList.add('showing');
     }
+  };
+
+  const countMinutes = () => {
+      setTimeout(() => {
+        stopRecording();
+      }, 60000 * 2)
   }
 
   useEffect(() => {
+    if (recording == true) {
+      countMinutes()
+    }
+  }, [videoUp.id])
+
+  useEffect(() => {
     (recordedVideo.current as any).pause();
-    checkSendReady()
-    console.log(completed)
-  }, [completed] )
+    checkSendReady();
+  }, [completed]);
 
   return (
     <div className="video_container">
       <h1>{videoQuestion}</h1>
-      <video className="main_video" ref={video} autoPlay playsInline>
-</video>
+      <h3>Maximo de dos minutos por video</h3>
+      <h3>Puede reintentar las veces que usted quiera</h3>
+      <video 
+        className="main_video" 
+        ref={video} 
+        autoPlay 
+        playsInline>
+        </video>
       <video
         className="recorded_video"
         ref={recordedVideo}
@@ -127,16 +142,18 @@ const Video: React.FC<Props> = ({ videoQuestion, videos, videoUp, setIsAVideoUp,
         loop></video>
       <div className="buttons">
         <button className="start" onClick={() => clickStart()}>
-          {recording ? 'parar' : 'grabar'}
+          {recording ? 'Stop' : 'Record'}
         </button>
         <button onClick={() => playRecorded()}>Reproducir</button>
-        <button className="atras" onClick={previousVideo}>
+        <button className="Previous" onClick={previousVideo}>
           Atrás
         </button>
-        <button className="siguiente" onClick={nextVideo}>
+        <button className="Next" onClick={nextVideo}>
           Siguiente
         </button>
-        <button ref ={sendButton} className ="not_showing">Enviar</button>
+        <button ref={sendButton} className="not_showing">
+          Send
+        </button>
       </div>
     </div>
   );

@@ -4,45 +4,13 @@ import Screenshot from './Screenshot';
 import Video from './Video';
 import { videoNames } from './videoNames';
 
-interface StateOfVideos {
-  video0: {
-    completed?: boolean;
-    time?: number;
-  };
-  video1: {
-    completed?: boolean;
-    time?: number;
-  };
-  video2: {
-    completed?: boolean;
-    time?: number;
-  };
-  video3: {
-    completed?: boolean;
-    time?: number;
-  };
+interface videoUp {
+  is: boolean
+  id: number
 }
 
 function App() {
-  const [stateOfVideos, setStateOfVideos] = useState<StateOfVideos>({
-    video0: {
-      completed: false,
-      time: 0,
-    },
-    video1: {
-      completed: false,
-      time: 0,
-    },
-    video2: {
-      completed: false,
-      time: 0,
-    },
-    video3: {
-      completed: false,
-      time: 0,
-    },
-  });
-  const [isAVideoUp, setIsAVideoUp] = useState({
+  const [isAVideoUp, setIsAVideoUp] = useState<videoUp>({
     is: false,
     id: 0,
   });
@@ -53,7 +21,7 @@ function App() {
   
   return (
     <div className="App">
-      <h1>Send us your responses!</h1>
+      <h1> - System for an online interview process - </h1>
       <div className="screenshots">
         {videoNames.map((name) => {
           return (
@@ -66,14 +34,22 @@ function App() {
           );
         })}
       </div>
+      <div className = "videos_container">
       {isAVideoUp.is && (
         <Video
           videoQuestion={videoNames[isAVideoUp.id].question}
-          videos={stateOfVideos}
           videoUp = {isAVideoUp}
-          setIsAVideoUp = {setIsAVideoUp}
-          setVideos={setStateOfVideos}></Video>
+          setIsAVideoUp = {setIsAVideoUp}></Video>
       )}
+      </div>
+      <footer>
+        <h4>Created and designed by Santiago Schuckmann</h4>
+        <ul>
+          <li><a href="https://github.com/santischuckmann">Github</a></li>
+          <li><a href="https://www.linkedin.com/in/santiago-schuckmann-33183620a/">LinkedIn</a></li>
+          <li><a href="">Email</a></li>
+        </ul>
+      </footer>
     </div>
   );
 }

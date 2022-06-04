@@ -2,14 +2,18 @@ body {
   font-size: 62.5%;
   margin: 0;
   padding: 0;
+  --background-videos: #111;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: azure;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+
+button {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
 .App {
@@ -17,6 +21,11 @@ code {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
+}
+
+.App h1 {
+  margin: 1rem;
 }
 
 .screenshots {
@@ -28,7 +37,7 @@ code {
 }
 
 .screenshot {
-  background-color: black;
+  background-color: var(--background-videos);
   width: 12rem;
   height: 18rem;
 }
@@ -49,9 +58,14 @@ code {
 }
 
 .screenshot button h2 {
-  color: #fff;
+  color: #ddd;
   font-size: 1rem;
   padding: 1rem;
+}
+
+.videos_container {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
 }
 
 .video_container {
@@ -62,13 +76,23 @@ code {
   gap: 2rem
 }
 
+.video_container h1 {
+  margin: 0;
+}
+
+.video_container h3 {
+  margin: 0;
+}
+
 .main_video {
-  border: 1px solid red;
+  border: 1px dashed white;
+  background-color: var(--background-videos);
   position: relative
 }
 
 .recorded_video {
-  border: 1px solid red;
+  border: 1px dashed white;
+  background-color: var(--background-videos);
   grid-row: 2 / 3;
 }
 
@@ -91,4 +115,32 @@ code {
 
 .showing {
   display: block;
+}
+
+footer {
+  margin-top: auto;
+  display: flex;
+  width: 100%;
+  height: 10vh;
+  flex-direction: row;
+  text-align: center;
+  justify-content: left;
+  align-items: center;
+  font-size: 0.8rem;
+  background-color: #fff;
+}
+
+footer h4 {
+  width: 50%;
+  text-align: right;
+}
+
+footer ul {
+  margin-left: 1rem;
+  padding: 2rem;
+  width: 50%;
+  gap: 5rem;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
 }
