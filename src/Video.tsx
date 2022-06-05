@@ -126,8 +126,8 @@ const Video: React.FC<Props> = ({ videoQuestion, videoUp, setIsAVideoUp }) => {
   return (
     <div className="video_container">
       <h1>{videoQuestion}</h1>
-      <h3>Maximo de dos minutos por video</h3>
-      <h3>Puede reintentar las veces que usted quiera</h3>
+      <h3>Maximum length of a video: 2 minutes</h3>
+      <h3>You have unlimited attempts</h3>
       <video className="main_video" ref={video} autoPlay playsInline></video>
       <video
         className="recorded_video"
@@ -139,12 +139,12 @@ const Video: React.FC<Props> = ({ videoQuestion, videoUp, setIsAVideoUp }) => {
         <button className="start" onClick={() => clickStart()}>
           {recording ? 'Stop' : 'Record'}
         </button>
-        <button onClick={() => playRecorded()}>Reproducir</button>
-        <button className="Previous" onClick={previousVideo}>
-          Atrás
+        <button onClick={() => playRecorded()}>Play video</button>
+        <button className="previous-button" onClick={previousVideo}>
+          Previous
         </button>
-        <button className="Next" onClick={nextVideo}>
-          Siguiente
+        <button className="next-button" onClick={nextVideo}>
+          Next
         </button>
         <button ref={sendButton} className="not_showing">
           Send

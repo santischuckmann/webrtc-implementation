@@ -1,11 +1,8 @@
 {
-  "homepage": "https://santischuckmann.github.io/webrtc-implementation",
   "private": "false",
   "name": "webrtc-implementation",
   "version": "0.0.0",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
@@ -25,6 +22,7 @@
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router": "^6.3.0",
     "webrtc-adapter": "^8.1.1"
   },
   "devDependencies": {
